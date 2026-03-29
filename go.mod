@@ -4,12 +4,12 @@ go 1.26.0
 
 require (
 	github.com/nickwells/location.mod v1.2.35
-	github.com/nickwells/param.mod/v7 v7.1.0
+	github.com/nickwells/param.mod/v7 v7.1.2
 )
 
 require (
 	github.com/nickwells/check.mod/v2 v2.1.28 // indirect
-	github.com/nickwells/col.mod/v6 v6.0.3 // indirect
+	github.com/nickwells/col.mod/v6 v6.1.0 // indirect
 	github.com/nickwells/english.mod v1.2.8 // indirect
 	github.com/nickwells/errutil.mod v1.2.23 // indirect
 	github.com/nickwells/filecheck.mod v1.2.12 // indirect
