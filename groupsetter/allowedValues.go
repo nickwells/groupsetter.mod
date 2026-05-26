@@ -43,7 +43,19 @@ func (s GroupParams[T]) WriteByNameAllowedValues(avStr *strings.Builder) {
 		return
 	}
 
-	avStr.WriteString("the following ")
+	valMandatoryCount := 0
+	valOptionalCount := 0
+
+	for _, p := range params {
+		switch p.BaseParam.Setter().ValueReq() {
+		case param.Mandatory:
+			valMandatoryCount++
+		case param.Optional:
+			valOptionalCount++
+		}
+	}
+
+	avStr.WriteString("The following ")
 
 	if len(params) == 1 {
 		avStr.WriteString("parameter may appear ")
@@ -53,8 +65,16 @@ func (s GroupParams[T]) WriteByNameAllowedValues(avStr *strings.Builder) {
 			len(params))
 	}
 
-	avStr.WriteString("but you must give the name and '='" +
-		" (if a following value is required)\n\n")
+	avStr.WriteString("but you must give the parameter name")
+
+	if valMandatoryCount == len(params) {
+		avStr.WriteString(" and '=' before the parameter value")
+	} else if valMandatoryCount+valOptionalCount > 0 {
+		avStr.WriteString(
+			" (and '=' before the parameter value if one is given)")
+	}
+
+	avStr.WriteString("\n\n")
 
 	pSep := ""
 	for _, p := range params {
