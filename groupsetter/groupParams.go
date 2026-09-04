@@ -53,6 +53,8 @@ type byPosParamInitInfo struct {
 
 // GroupParams provides features that are common across many of the
 // Setters in this module.
+//
+// Note that it is NOT suitable as a param.Setter value itself.
 type GroupParams[T any] struct {
 	// pSet is the parameter set which is used to
 	//   - check that added parameters and final checks are valid.
