@@ -103,7 +103,7 @@ func NewGroupParams[T any](
 			phelp.NoHelp{},
 			param.SetParamPrefixes()),
 		avalShownAlready: make(ptypes.AValCache),
-		StrListSeparator: psetter.StrListSeparator{Sep: ";"},
+		Sep:              ";",
 	}
 
 	for _, o := range optFuncs {
