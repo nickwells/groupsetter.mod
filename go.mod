@@ -1,6 +1,6 @@
 module github.com/nickwells/groupsetter.mod
 
-go 1.26.0
+go 1.27.0
 
 require (
 	github.com/nickwells/location.mod v1.2.38
