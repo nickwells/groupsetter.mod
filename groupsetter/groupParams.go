@@ -90,6 +90,11 @@ type GroupParams[T any] struct {
 	// The StrListSeparator allows you to override the default separator
 	// between the parameters in the group.
 	psetter.StrListSeparator
+
+	// If you set a ValDesc this will be used in help messages to label the
+	// Value. If you leave this blank then the Value will be labelled
+	// "group-of-values".
+	ValDesc string
 }
 
 // NewGroupParams initialises and returns a properly constructed
@@ -230,4 +235,14 @@ func (s GroupParams[T]) CheckGroupParams(name string) {
 			fmt.Sprintf("%T", s),
 			"use the constructor"))
 	}
+}
+
+// ValDescribe returns a string describing the value that can follow the
+// parameter
+func (s GroupParams[T]) ValDescribe() string {
+	if s.ValDesc != "" {
+		return s.ValDesc
+	}
+
+	return "group-of-values"
 }

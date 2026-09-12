@@ -94,15 +94,8 @@ func (s List[T]) CurrentValue() string {
 func (s List[T]) CheckSetter(name string) {
 	// Check the value is not nil
 	if s.Value == nil {
-		panic(psetter.NilValueMessage(
-			name,
-			fmt.Sprintf("%T", s)))
+		panic(psetter.NilValueMessage(name, fmt.Sprintf("%T", s)))
 	}
 
 	s.CheckGroupParams(name)
-}
-
-// ValDescribe returns a name describing the values allowed
-func (s List[T]) ValDescribe() string {
-	return "group-of-values"
 }
