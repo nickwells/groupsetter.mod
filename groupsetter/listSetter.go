@@ -22,8 +22,9 @@ type List[T any] struct {
 	Value *[]T
 }
 
-// NewList constructs a List and returns it. Lists must be created through
-// this function - the CheckSetter method will panic if not.
+// NewList constructs a List setter and returns it. It is strongly advised
+// that this param.Setter is constructed using this func as this will ensure
+// that it is properly constructed.
 func NewList[T any](
 	v *[]T, optFuncs ...ptypes.OptFunc[GroupParams[T]],
 ) *List[T] {
@@ -35,11 +36,10 @@ func NewList[T any](
 	return s
 }
 
-// SetWithVal (called when a value follows the parameter) splits the value on
-// the separator into a slice of strings, initialises a new interim value (of
-// type T), generates a new param.PSet and parses the slice of strings to
-// populate the interim value. If no problems are found the new value is
-// added to the List.Value (a slice of elements of type T).
+// SetWithVal (called when a value follows the parameter) populates the
+// InterimValue using the individual Setters added to this Setter. If no
+// problems are found the new (composite) value is added to the List.Value (a
+// slice of elements of type T).
 //
 // If any problems are found this will return a non-nil error and the Value
 // is not updated.
@@ -75,18 +75,7 @@ func (s List[T]) AllowedValues() string {
 
 // CurrentValue returns the current setting of the parameter value
 func (s List[T]) CurrentValue() string {
-	var cv strings.Builder
-
-	sep := ""
-
-	for _, v := range *s.Value {
-		cv.WriteString(sep)
-		fmt.Fprintf(&cv, "%v", v)
-
-		sep = "\n"
-	}
-
-	return cv.String()
+	return fmt.Sprintf("%v", *s.Value)
 }
 
 // CheckSetter panics if the setter has not been properly created - if the
